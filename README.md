@@ -1,1 +1,1 @@
-# jogodavelha
+# jogodavelha em linguagem estruturada#
