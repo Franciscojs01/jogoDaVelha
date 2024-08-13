@@ -1,0 +1,157 @@
+<script>
+    const jogoDaVelha = [
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9]
+    ];
+    let exibirMatriz = '';
+    let posicao = 0;
+    var resposta = false;
+    let simbolo = `X`;
+    let pergunta = 0;
+    let linha = 0;
+    let coluna = 0;
+
+    function jogar() {
+        let mudou = false;
+
+        for (linha = 0; linha < 3; linha++) {
+            for (coluna = 0; coluna < 3; coluna++) {
+                if (jogoDaVelha[linha][coluna] == posicao) {
+                    jogoDaVelha[linha][coluna] = simbolo;
+                    mudou = true;
+                }
+            }
+        }
+
+        return mudou;
+    }
+    function mudarJogador() {
+        if (simbolo == 'X') {
+            simbolo = 'O'
+
+        } else {
+            simbolo = 'X';
+
+        }
+    }
+    function jogadorVencedor() {
+        let jogadaEfetuada = false;
+        let verificacaoVelha = 0;
+
+        for (linha = 0; linha < 3; linha++) {
+            if (jogoDaVelha[linha][0] == 'X' && jogoDaVelha[linha][1] == 'X' && jogoDaVelha[linha][2] == 'X') {
+                jogadaEfetuada = true;
+
+                console.log('jogador X venceu');
+
+            } else if (jogoDaVelha[linha][0] == 'O' && jogoDaVelha[linha][1] == 'O' && jogoDaVelha[linha][2] == 'O') {
+                jogadaEfetuada = true;
+
+                console.log('jogador O venceu');
+
+            }
+        }
+
+        for (coluna = 0; coluna < 3; coluna++) {
+            if (jogoDaVelha[0][coluna] == 'X' && jogoDaVelha[1][coluna] == 'X' && jogoDaVelha[2][coluna] == 'X') {
+                jogadaEfetuada = true;
+
+                console.log('jogador X venceu');
+
+            } else if (jogoDaVelha[0][coluna] == 'O' && jogoDaVelha[1][coluna] == 'O' && jogoDaVelha[2][coluna] == 'O') {
+                jogadaEfetuada = true;
+
+                console.log('jogador O venceu');
+
+            }
+        }
+
+        if (jogoDaVelha[0][0] == 'X' && jogoDaVelha[1][1] == 'X' && jogoDaVelha[2][2] == 'X') {
+            jogadaEfetuada = true;
+
+            console.log('jogador X venceu');
+
+        } else if (jogoDaVelha[0][0] == 'O' && jogoDaVelha[1][1] == 'O' && jogoDaVelha[2][2] == 'O') {
+            jogadaEfetuada = true;
+
+            console.log('jogador O venceu');
+
+        } else if (jogoDaVelha[0][2] == 'X' && jogoDaVelha[1][1] == 'X' && jogoDaVelha[2][0] == 'X') {
+            jogadaEfetuada = true;
+
+            console.log('jogador X venceu');
+
+        } else if (jogoDaVelha[0][2] == 'O' && jogoDaVelha[1][1] == 'O' && jogoDaVelha[2][0] == 'O') {
+            jogadaEfetuada = true;
+
+            console.log('jogador O venceu');
+
+        }
+
+        for (linha = 0; linha < 3; linha++) {
+            for (coluna = 0; coluna < 3; coluna++) {
+                if (jogoDaVelha[linha][coluna] != 'X' && jogoDaVelha[linha][coluna] != 'O') {
+                    verificacaoVelha++
+                }
+            }
+        }
+
+        if (verificacaoVelha == 0 && !jogadaEfetuada) {
+            jogadaEfetuada = true;
+
+            console.log('TERMINOU EM VELHA');
+
+        }
+
+        return jogadaEfetuada;
+    }
+
+    function exibirJogo() {
+        for (let contador = 0; contador < jogoDaVelha.length; contador++) {
+            exibirMatriz += jogoDaVelha[contador].join('--') + '\n';
+
+        }
+
+        console.log(exibirMatriz);
+    }
+
+    function resetarJogo() {
+        for (linha = 0; linha < 3; linha++) {
+            for (coluna = 0; coluna < 3; coluna++) {
+                jogoDaVelha[linha][coluna] = linha * 3 + coluna + 1;
+            }
+        }
+    }
+
+
+    do {
+
+        do {
+
+            do {
+                posicao = Number(prompt(`vai jogar [${simbolo}] em qual posicao? `));
+
+                resposta = jogar(simbolo, posicao);
+                if (resposta == false) {
+                    console.log('resposta invalida');
+
+                }
+            } while (resposta == false)
+
+            exibirJogo();
+            mudarJogador();
+        } while (jogadorVencedor() == false)
+
+        pergunta = prompt('VOCE QUER CONTINUAR? SIM/NAO');
+        if (pergunta == 'sim') {
+            resetarJogo();
+
+        } else {
+            break;
+
+        }
+    } while (pergunta == 'sim')
+
+    console.log('JOGO FINALIZADO !');
+</script>
